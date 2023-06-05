@@ -46,6 +46,7 @@
         <EditText
             android:id="@+id/matriculRes"
             android:layout_width="0dp"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/inpute_bg"
@@ -134,6 +135,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/inpute_bg"
             android:drawablePadding="10dp"
+            android:inputType="number"
             android:ems="10"
             android:gravity="center"
             android:hint="Nombre de jours"
@@ -150,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:inputType="number"
             android:background="@drawable/inpute_bg"
             android:drawablePadding="10dp"
             android:ems="10"

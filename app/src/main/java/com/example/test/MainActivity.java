@@ -51,15 +51,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month =month+ 1;
                 String datee=day+"/"+ month +"/"+year;
+                date.setText(datee);
             }
         };
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
 
 
         timeBooking.setOnClickListener(new View.OnClickListener() {
