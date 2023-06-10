@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText timeBooking;
     private int mHour,mMinute;
+    Button conf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
                 date=findViewById(R.id.dateDebutRes);
                 hour=findViewById(R.id.heurDebutRes);
+                conf=findViewById(R.id.btnConfirmationReservation);
 
                 timeBooking=findViewById(R.id.heurDebutRes);
 
@@ -87,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
                         },mHour,mMinute,true);
                         timePickerDialog.show();
 
+                    }
+                });
+                conf.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i =new Intent(MainActivity.this,PaymentOnline.class);
+                        startActivity(i);
                     }
                 });
     }
