@@ -15,7 +15,8 @@ public class PaymentOnline extends AppCompatActivity {
 
 
     TextView tarifTotal;
-    double tarif;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +30,17 @@ public class PaymentOnline extends AppCompatActivity {
 
 
         Intent data= getIntent();
-
-        String nameUser=data.getStringExtra("NAME");
+        String parkingName = data.getStringExtra("ParkingName");
         String parkingWilaya = data.getStringExtra("ParkingWilaya");
+        String tarifH=data.getStringExtra("TARIF_H");
+        String nameUser=data.getStringExtra("NAME");
         String matricule =data.getStringExtra("MATRIC");
-        String tarif= data.getStringExtra("TARIF_TOTAL");
         String dateDebutReservation =data.getStringExtra("DATE_DebutRes");
         String heureDebutReservation=data.getStringExtra("HOUR_DebutRes");
-        int nbrj=Integer.parseInt(data.getStringExtra("NBR_JOURS"));
-        int nbrh=Integer.parseInt(data.getStringExtra("NBR_HEURS"));
+        String nbrj=data.getStringExtra("NBR_JOURS");
+        String nbrh=data.getStringExtra("NBR_HEURS");
+        String tarif= data.getStringExtra("TARIF_TOTAL");
+
 
         tarifTotal.setText(tarif);
         payOnline.setOnClickListener(new View.OnClickListener() {
@@ -45,10 +48,30 @@ public class PaymentOnline extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i =new Intent(PaymentOnline.this,CardPaiment.class);
                 startActivity(i);
+            }
+        });
 
+
+        payPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(PaymentOnline.this,PaiementSurPlace.class);
+
+
+                intent.putExtra("UserName", nameUser);
+                intent.putExtra("ParkingName", parkingName);
+                intent.putExtra("ParkingWilaya", parkingWilaya);
+                intent.putExtra("MATRIC",matricule);
+                intent.putExtra("TARIF_TOTAL", tarif);
+                intent.putExtra("DATE_DebutRes", dateDebutReservation);
+                intent.putExtra("HOUR_DebutRes", heureDebutReservation);
+                intent.putExtra("NBR_JOURS", nbrj);
+                intent.putExtra("NBR_HEURS", nbrh);
+                intent.putExtra("TARIF_H", tarifH);
+
+                startActivity(intent);
 
             }
-
         });
 
 

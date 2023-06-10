@@ -15,7 +15,6 @@ import org.w3c.dom.Text;
 public class ProfileReservationParking extends AppCompatActivity {
 
 
-    Button modif;
     TextView timeOpen;
     TextView timeClose;
     TextView namePark;
@@ -66,12 +65,12 @@ public class ProfileReservationParking extends AppCompatActivity {
         reserv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileReservationParking.this, MainActivity.class);
 
                 String parkName = namePark.getText().toString();
                 String parkWilaya = wilaya.getText().toString();
                 String parkTarif = tarif.getText().toString();
 
+                Intent intent = new Intent(ProfileReservationParking.this, MainActivity.class);
                 intent.putExtra("PNAME", parkName);
                 intent.putExtra("PWILAYA", parkWilaya);
                 intent.putExtra("PTARIF", parkTarif);

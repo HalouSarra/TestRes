@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 conf.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this, PaymentOnline.class);
-                        int nbrJ = Integer.parseInt(nbrJours.getText().toString());
-                        int nbrH = Integer.parseInt(nbrHeurs.getText().toString());
-                        String tarifT =String.valueOf((Double.parseDouble(tarif)* nbrJ * 24 + (Double.parseDouble(tarif)) * nbrH)) ;
+
+                        String nbrJ = nbrJours.getText().toString();
+                        String nbrH = nbrHeurs.getText().toString();
+                        String tarifT =String.valueOf((Double.parseDouble(tarif)* Integer.parseInt(nbrJ) * 24 + (Double.parseDouble(tarif)) * Integer.parseInt(nbrH))) ;
                         String name = nom.getText().toString();
                         String matric = matricule.getText().toString();
                         String tarifTotal = tarifT;
@@ -120,12 +120,15 @@ public class MainActivity extends AppCompatActivity {
                         String selectedHour = timeBooking.getText().toString();
                         String selectedNbrJours = nbrJours.getText().toString();
                         String selectedNbrHeurs = nbrHeurs.getText().toString();
+                        Intent intent = new Intent(MainActivity.this, PaymentOnline.class);
+
 
                         intent.putExtra("NAME", name);
                         intent.putExtra("ParkingName", parkingName);
                         intent.putExtra("ParkingWilaya", parkingWilaya);
                         intent.putExtra("MATRIC", matric);
                         intent.putExtra("TARIF_TOTAL", tarifTotal);
+                        intent.putExtra("TARIF_H", tarif);
                         intent.putExtra("DATE_DebutRes", selectedDate);
                         intent.putExtra("HOUR_DebutRes", selectedHour);
                         intent.putExtra("NBR_JOURS", selectedNbrJours);
