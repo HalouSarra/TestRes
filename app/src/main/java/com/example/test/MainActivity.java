@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     EditText date;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener setListener;
 
     EditText timeBooking;
+    EditText nom,matricule,nbrJours,nbrHeurs;
     private int mHour,mMinute;
     Button conf;
     @Override
@@ -31,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
                 date=findViewById(R.id.dateDebutRes);
                 hour=findViewById(R.id.heurDebutRes);
+                nom=findViewById(R.id.nomRes);
+                matricule=findViewById(R.id.matriculRes);
                 conf=findViewById(R.id.btnConfirmationReservation);
-
+                nbrJours=findViewById(R.id.nbrJours);
+                nbrHeurs=findViewById(R.id.nbrHours);
                 timeBooking=findViewById(R.id.heurDebutRes);
 
                 Calendar calendar =Calendar.getInstance();
@@ -92,11 +97,42 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        Intent data = getIntent();
+        String tarif = data.getStringExtra("PTARIF");
+        String parkingName = data.getStringExtra("PNAME");
+        String parkingWilaya = data.getStringExtra("PWILAYA");
+
+
+
+
                 conf.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i =new Intent(MainActivity.this,PaymentOnline.class);
-                        startActivity(i);
+                        Intent intent = new Intent(MainActivity.this, PaymentOnline.class);
+                        int nbrJ = Integer.parseInt(nbrJours.getText().toString());
+                        int nbrH = Integer.parseInt(nbrHeurs.getText().toString());
+                        String tarifT =String.valueOf((Double.parseDouble(tarif)* nbrJ * 24 + (Double.parseDouble(tarif)) * nbrH)) ;
+                        String name = nom.getText().toString();
+                        String matric = matricule.getText().toString();
+                        String tarifTotal = tarifT;
+                        String selectedDate = date.getText().toString();
+                        String selectedHour = timeBooking.getText().toString();
+                        String selectedNbrJours = nbrJours.getText().toString();
+                        String selectedNbrHeurs = nbrHeurs.getText().toString();
+
+                        intent.putExtra("NAME", name);
+                        intent.putExtra("ParkingName", parkingName);
+                        intent.putExtra("ParkingWilaya", parkingWilaya);
+                        intent.putExtra("MATRIC", matric);
+                        intent.putExtra("TARIF_TOTAL", tarifTotal);
+                        intent.putExtra("DATE_DebutRes", selectedDate);
+                        intent.putExtra("HOUR_DebutRes", selectedHour);
+                        intent.putExtra("NBR_JOURS", selectedNbrJours);
+                        intent.putExtra("NBR_HEURS", selectedNbrHeurs);
+
+                        startActivity(intent);
+
                     }
                 });
     }

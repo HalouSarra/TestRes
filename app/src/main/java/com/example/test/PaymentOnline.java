@@ -1,6 +1,5 @@
 package com.example.test;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,12 +26,29 @@ public class PaymentOnline extends AppCompatActivity {
         payOnline=findViewById(R.id.payOnline);
         payPlace=findViewById(R.id.payPlace);
 
+
+
+        Intent data= getIntent();
+
+        String nameUser=data.getStringExtra("NAME");
+        String parkingWilaya = data.getStringExtra("ParkingWilaya");
+        String matricule =data.getStringExtra("MATRIC");
+        String tarif= data.getStringExtra("TARIF_TOTAL");
+        String dateDebutReservation =data.getStringExtra("DATE_DebutRes");
+        String heureDebutReservation=data.getStringExtra("HOUR_DebutRes");
+        int nbrj=Integer.parseInt(data.getStringExtra("NBR_JOURS"));
+        int nbrh=Integer.parseInt(data.getStringExtra("NBR_HEURS"));
+
+        tarifTotal.setText(tarif);
         payOnline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i =new Intent(PaymentOnline.this,CardPaiment.class);
                 startActivity(i);
+
+
             }
+
         });
 
 
