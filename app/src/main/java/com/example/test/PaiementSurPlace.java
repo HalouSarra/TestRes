@@ -1,13 +1,16 @@
 package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.itextpdf.io.image.ImageData;
@@ -28,12 +31,15 @@ import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+//import java.io.FileOutputStream;
+//import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Random;
 
 public class PaiementSurPlace extends AppCompatActivity {
+    Button ticket;
+
+    File pdfFile;
 
 
     @Override
@@ -41,15 +47,27 @@ public class PaiementSurPlace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paiement_sur_place);
 
+        ticket=findViewById(R.id.btnOuvrir);
+
         try {
-            createPdf();
-        }catch (FileNotFoundException e){
+            pdfFile = createPdf();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-
+        final File finalPdfFile = pdfFile;
+        ticket.setOnClickListener(view -> {
+            Uri pdfUri = FileProvider.getUriForFile(PaiementSurPlace.this, getApplicationContext().getPackageName() + ".fileprovider", finalPdfFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(pdfUri, "application/pdf");
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+        });
     }
-    private void createPdf() throws  FileNotFoundException{
+
+
+
+    private File createPdf() throws  FileNotFoundException{
         Intent data= getIntent();
         String parkingName = data.getStringExtra("ParkingName");
         String parkingWilaya = data.getStringExtra("ParkingWilaya");
@@ -62,9 +80,11 @@ public class PaiementSurPlace extends AppCompatActivity {
         String nbrj=data.getStringExtra("NBR_JOURS");
         String  nbrh=data.getStringExtra("NBR_HEURS");
 
-        String pdfPath= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-        File file =new File(pdfPath,"factureBlasti.pdf");
-        OutputStream outputStream= new FileOutputStream(file);
+
+
+        String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        File file = new File(pdfPath, "factureBlasti.pdf");
+      //  OutputStream outputStream = new FileOutputStream(file);
 
 
         PdfWriter pdfWriter =new PdfWriter(file);
@@ -159,7 +179,7 @@ public class PaiementSurPlace extends AppCompatActivity {
         Table table2 =new Table(columnWidth2);
 
         //Tab2  01
-        table2.addCell(new Cell().add(new Paragraph("Nom de parking:").setFontColor(ColorConstants.WHITE)).setBackgroundColor(blue1));
+        table2.addCell(new Cell().add(new Paragraph("Nom de parking").setFontColor(ColorConstants.WHITE)).setBackgroundColor(blue1));
         table2.addCell(new Cell().add(new Paragraph("places").setFontColor(ColorConstants.WHITE)).setBackgroundColor(blue1));
         table2.addCell(new Cell().add(new Paragraph("Jours").setFontColor(ColorConstants.WHITE)).setBackgroundColor(blue1));
         table2.addCell(new Cell().add(new Paragraph("Heures").setFontColor(ColorConstants.WHITE)).setBackgroundColor(blue1));
@@ -184,5 +204,6 @@ public class PaiementSurPlace extends AppCompatActivity {
         document.close();
         Toast.makeText(this, "pdf créé", Toast.LENGTH_SHORT).show();
 
+        return file;
     }
 }

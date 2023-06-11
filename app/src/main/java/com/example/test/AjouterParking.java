@@ -45,7 +45,7 @@ public class AjouterParking extends AppCompatActivity {
         timeOpen=findViewById(R.id.heurOverture);
         timeClose=findViewById(R.id.heurFermiture);
         ed=findViewById(R.id.autoCTextCase);
-        conf=findViewById(R.id.btnConfirmation);
+        conf=findViewById(R.id.btnOuvrir);
         namePark=findViewById(R.id.nomParking);
         nbrPlace = findViewById(R.id.nbrPlace);
         tarif=findViewById(R.id.tarifHeure);
