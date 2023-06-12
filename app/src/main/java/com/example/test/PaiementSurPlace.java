@@ -31,8 +31,7 @@ import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.OutputStream;
+
 import java.util.Calendar;
 import java.util.Random;
 
